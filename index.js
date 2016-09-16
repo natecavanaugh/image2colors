@@ -13,6 +13,8 @@ const patterns = {
 }
 
 module.exports = function colorPalette (options, callback) {
+  options.colorLength = options.colorLength || 5
+
   // SVG
   if (options.fileName.match(patterns.svg)) {
     return callback(null, getSvgColors(options.fileName, {flat: true}))
@@ -25,7 +27,7 @@ module.exports = function colorPalette (options, callback) {
 function paletteFromBitmap (options, callback) {
   getPixels(options.fileName, function (err, pixels) {
     if (err) return callback(err)
-    const palette = getRgbaPalette(pixels.data, options.colorLenth).map(function (rgba) {
+    const palette = getRgbaPalette(pixels.data, options.colorLength).map(function (rgba) {
       return chroma(rgba)
     })
     return callback(null, palette)
