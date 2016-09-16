@@ -17,7 +17,7 @@ This package is intended for use in node environments. It won't work in a browse
 ```js
 const getColors = require("get-image-colors")
 
-getColors(__dirname + 'double-rainbow.png', function(err, colors){
+getColors({ fileName: __dirname + 'double-rainbow.png', colorLength: 5}, function(err, colors){
   // colors is an array of colors
 })
 ```

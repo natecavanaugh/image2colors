@@ -12,20 +12,20 @@ const patterns = {
   svg: /svg$/i
 }
 
-module.exports = function colorPalette (filename, callback) {
+module.exports = function colorPalette (options, callback) {
   // SVG
-  if (filename.match(patterns.svg)) {
-    return callback(null, getSvgColors(filename, {flat: true}))
+  if (options.fileName.match(patterns.svg)) {
+    return callback(null, getSvgColors(options.fileName, {flat: true}))
   }
 
   // PNG, GIF, JPG
-  return paletteFromBitmap(filename, callback)
+  return paletteFromBitmap(options, callback)
 }
 
-function paletteFromBitmap (filename, callback) {
-  getPixels(filename, function (err, pixels) {
+function paletteFromBitmap (options, callback) {
+  getPixels(options.fileName, function (err, pixels) {
     if (err) return callback(err)
-    const palette = getRgbaPalette(pixels.data, 5).map(function (rgba) {
+    const palette = getRgbaPalette(pixels.data, options.colorLenth).map(function (rgba) {
       return chroma(rgba)
     })
     return callback(null, palette)
