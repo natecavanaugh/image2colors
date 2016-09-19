@@ -10,8 +10,6 @@ Extract colors from images. Supports GIF, JPG, PNG, and even SVG!
 npm install get-image-colors --save
 ```
 
-This package is intended for use in node environments. It won't work in a browser because it has node-specific dependencies.
-
 ## Usage
 
 ```js
@@ -31,6 +29,11 @@ colors.map(color => color.hex())
 colors[0].alpha(0.5).css();
 // => 'rgb(0,128,128)''
 ```
+
+## Options
+
+fileName: could be a path (file system path or url) or base64 data:image
+colorLength: restrict the number of result colors (there is a bug with svg images, see: TODO section)
 
 ## How it Works
 
