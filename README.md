@@ -58,6 +58,16 @@ npm test
 
 - [mocha](https://github.com/mochajs/mocha): simple, flexible, fun test framework
 
+## Credits
+
+The original "get-image-colors" module comes from [zeke](https://github.com/zeke/get-image-colors)
+And great thanks giving for all the developers of the required dependencies. 
+
+## TODO
+
+The "colorLength" property works only with raster images.
+
 ## License
 
 MIT
+
