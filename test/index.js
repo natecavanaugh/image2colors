@@ -11,7 +11,8 @@ describe('get-image-colors', function () {
     assert(Array.isArray(palette))
     assert(palette.length)
     palette = palette.map(color => color.hex())
-    console.log('Palette: ', palette)
+    console.log()
+    console.info('Palette: ', palette)
     assert(palette[0].match(/^#[0-9a-f]{3,6}$/i))
     done()
   }
@@ -19,7 +20,6 @@ describe('get-image-colors', function () {
 
   it('works on base64 images', (done) => {
     const base64image = fs.readFileSync(__dirname + '/fixtures/thumb.base64').toString()
-    // console.log('base64image ', base64image)
     getColors({ fileName: base64image }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
