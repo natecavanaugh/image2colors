@@ -36,7 +36,7 @@ const paletteFromSVG = (options, callback) => {
 const paletteFromBitmap = (options, callback) => {
   getPixels(options.fileName, function (err, pixels) {
     if (err) return callback(err)
-    const palette = getRgbaPalette(pixels.data, options.colorLength).map(function (rgba) {
+    const palette = getRgbaPalette(pixels.data, options.colorLength + 1).map(function (rgba) {
       return chroma(rgba)
     })
     return callback(null, palette)

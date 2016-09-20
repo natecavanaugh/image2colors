@@ -12,7 +12,7 @@ describe('get-image-colors', function () {
     assert(palette.length)
     palette = palette.map(color => color.hex())
     console.log()
-    console.info('Palette: ', palette)
+    console.info('Palette: ', palette.length, palette)
     assert(palette[0].match(/^#[0-9a-f]{3,6}$/i))
     done()
   }
@@ -20,7 +20,7 @@ describe('get-image-colors', function () {
 
   it('works on base64 images', (done) => {
     const base64image = fs.readFileSync(__dirname + '/fixtures/thumb.base64').toString()
-    getColors({ fileName: base64image }, (err, palette) => ( testPalette(err, palette, done) ))
+    getColors({ fileName: base64image, colorLength: 10 }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on JPG images', (done) => {
@@ -36,7 +36,7 @@ describe('get-image-colors', function () {
   })
 
   it('works on SVG images', (done) => {
-    getColors({ fileName: __dirname + '/fixtures/thumb.svg' }, (err, palette) => ( testPalette(err, palette, done) ))
+    getColors({ fileName: __dirname + '/fixtures/thumb.svg', colorLength: 10 }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
 })
