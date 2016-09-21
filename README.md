@@ -2,22 +2,25 @@
 
 Extract colors from images. Supports GIF, JPG, PNG, and even SVG!
 
-![example color palette](https://cldup.com/-uw9Ub6L6s.png)
+![example color palette](https://lh3.googleusercontent.com/aygg3azvXF-6uilOc7nS3uKU2UQFasL36pc_kPz-X9tJSAn3d839I32YyVVoD7Yfte52k6MRlh9ZTQroRIlrqqkN9lGWoA5dbZHsmGA_5A4sCvPX2iFa5sqtxOPVAl8uQg5DoEhSlqcdTRB3e58H76D7_5x_CPuj4c9UZ1KIoLQIXRMB0zJ-2PDCI1G_XS1GqH-GxYaSO_VQ6SVKWb5ascQeGi_TJUNbg0iDbiWtD4DEP-We3wEQ23qAE6H1ALDJ1qQXv4cvDfAAS1bpIoHoH9rqBZPVLLs4nCi8srhkFurMZJg7ej1dJwIMMkeLVhW7qb5-FRr5tWkcS9c4EU1-6YA-uuXvmRH5b1f6bjsc1w9G6coIV-6uH3qHDclIfBtbP7Gd4ZmUqMhvrdpqMD9rscl__tIkI-xZW9iPMy8W4Q5m5BmG5eFA16R0x4u0KeWxR_WkD8y3ebiZ2doDJahq8hrqqeokasQNDQ6uIntBwh9hmPsRuQjCagyo-VAcZ2jF4SEt1l3OOfyOrdND2LxQrSIFsMn86sYfb_xTGRGjZasFNO3YTUZBqHpSRTFszCUWMvg1hOdWElggIqDRCSlZhso2RsfCo1XcM-wNQpsXMCAHBnHMMg=w558-h390-no)
 
 ## Installation
 
 ```sh
-npm install get-image-colors --save
+npm install image2colors --save
 ```
 
 ## Usage
 
 ```js
-const getColors = require("get-image-colors")
+const getColors = require("image2colors")
 
-getColors({ fileName: __dirname + 'double-rainbow.png', colorLength: 5}, function(err, colors){
-  // colors is an array of colors
-})
+getColors({
+    fileName: __dirname + 'double-rainbow.png',
+    colorLength: 5
+    }, function(err, colors) {
+      // colors is an array of colors
+    })
 ```
 
 `colors` is an array of [chroma.js](http://gka.github.io/chroma.js) color objects. chroma.js objects have methods that lets you pick the color format you want (RGB hex, HSL, etc), and give you access to powerful color manipulation features:
@@ -33,7 +36,7 @@ colors[0].alpha(0.5).css();
 ## Options
 
 fileName: could be a path (file system path or url) or base64 data:image
-colorLength: restrict the number of result colors (there is a bug with svg images, see: TODO section)
+colorLength: restrict the number of result colors
 
 ## How it Works
 
