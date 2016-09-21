@@ -5,8 +5,9 @@ const path = require('path')
 const getPixels = require('get-pixels')
 const getRgbaPalette = require('get-rgba-palette')
 const chroma = require('chroma-js')
-const getSvgColors = require('get-svg-colors')
-const _ = require('lodash/core')
+const getSvgColors = require('svg2colors')
+const _map = require('lodash/map')
+const _each = require('lodash/each')
 
 const patterns = {
   base64: /;base64,/i,
@@ -21,7 +22,7 @@ const paletteFromSVG = (options, callback) => {
   const uniqueSvgColors = []
   let scaleColors
 
-  _.each(palette, (color) => {
+  _each(palette, (color) => {
     if (color.hex) {
       const hex = color.hex()
       if (uniqueSvgColors.indexOf(hex) === -1) {
@@ -36,7 +37,7 @@ const paletteFromSVG = (options, callback) => {
     scaleColors = uniqueSvgColors
   }
 
-  const colors = _.map(scaleColors, (colorString) => {
+  const colors = _map(scaleColors, (colorString) => {
     return chroma(colorString)
   })
 
@@ -46,7 +47,7 @@ const paletteFromSVG = (options, callback) => {
 const paletteFromBitmap = (options, callback) => {
   getPixels(options.image, function (err, pixels) {
     if (err) return callback(err)
-    const palette = getRgbaPalette(pixels.data, options.colors + 1).map(function (rgba) {
+    const palette = _map(getRgbaPalette(pixels.data, options.colors + 1), function (rgba) {
       return chroma(rgba)
     })
     return callback(null, palette)
