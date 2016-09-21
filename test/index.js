@@ -1,10 +1,10 @@
 /* globals describe, it */
 
-const getColors = require('..')
+const image2colors = require('..')
 const assert = require('assert')
 const fs = require('fs')
 
-describe('get-image-colors', function () {
+describe('image2colors', function () {
 
   const testPalette = (err, palette, done) => {
     if (err) throw err
@@ -21,35 +21,35 @@ describe('get-image-colors', function () {
 
   it('works on base64 images', (done) => {
     const base64image = fs.readFileSync(__dirname + '/fixtures/thumb.base64').toString()
-    getColors({
+    image2colors({
       fileName: base64image,
       colorLength: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on JPG images', (done) => {
-    getColors({
+    image2colors({
       fileName: __dirname + '/fixtures/thumb.jpg',
       colorLength: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on GIF images', (done) => {
-    getColors({
+    image2colors({
       fileName: __dirname + '/fixtures/thumb.gif',
       colorLength: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on PNG images', (done) => {
-    getColors({
+    image2colors({
       fileName: __dirname + '/fixtures/thumb.png',
       colorLength: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on SVG images', (done) => {
-    getColors({
+    image2colors({
       fileName: __dirname + '/fixtures/thumb.svg',
       colorLength: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
