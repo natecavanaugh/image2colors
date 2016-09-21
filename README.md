@@ -18,7 +18,7 @@ const image2colors = require("image2colors")
 image2colors({
   image: __dirname + 'double-rainbow.png',
   colors: 5,
-  reduceSvg: false
+  scaleSvg: false
 }, function(err, colors) {
   // colors is an array of colors
 })
