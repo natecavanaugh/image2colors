@@ -16,11 +16,11 @@ npm install image2colors --save
 const image2colors = require("image2colors")
 
 image2colors({
-    fileName: __dirname + 'double-rainbow.png',
-    colorLength: 5
-    }, function(err, colors) {
-      // colors is an array of colors
-    })
+  fileName: __dirname + 'double-rainbow.png',
+  colorLength: 5
+}, function(err, colors) {
+  // colors is an array of colors
+})
 ```
 
 `colors` is an array of [chroma.js](http://gka.github.io/chroma.js) color objects. chroma.js objects have methods that lets you pick the color format you want (RGB hex, HSL, etc), and give you access to powerful color manipulation features:
