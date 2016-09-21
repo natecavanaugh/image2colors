@@ -1,4 +1,4 @@
-# get-image-colors
+# image2colors
 
 Extract colors from images. Supports GIF, JPG, PNG, and even SVG!
 
