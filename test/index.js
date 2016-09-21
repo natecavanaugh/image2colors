@@ -22,36 +22,45 @@ describe('image2colors', function () {
   it('works on base64 images', (done) => {
     const base64image = fs.readFileSync(__dirname + '/fixtures/thumb.base64').toString()
     image2colors({
-      fileName: base64image,
-      colorLength: 10
+      image: base64image,
+      colors: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on JPG images', (done) => {
     image2colors({
-      fileName: __dirname + '/fixtures/thumb.jpg',
-      colorLength: 10
+      image: __dirname + '/fixtures/thumb.jpg',
+      colors: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on GIF images', (done) => {
     image2colors({
-      fileName: __dirname + '/fixtures/thumb.gif',
-      colorLength: 10
+      image: __dirname + '/fixtures/thumb.gif',
+      colors: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on PNG images', (done) => {
     image2colors({
-      fileName: __dirname + '/fixtures/thumb.png',
-      colorLength: 10
+      image: __dirname + '/fixtures/thumb.png',
+      colors: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
   it('works on SVG images', (done) => {
     image2colors({
-      fileName: __dirname + '/fixtures/thumb.svg',
-      colorLength: 10
+      image: __dirname + '/fixtures/thumb.svg',
+      colors: 10,
+      scaleSvg: true
+    }, (err, palette) => ( testPalette(err, palette, done) ))
+  })
+
+  it('works on SVG source', (done) => {
+    const svgSource = fs.readFileSync(__dirname + '/fixtures/thumb.svg').toString()
+    image2colors({
+      image: svgSource,
+      colors: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 

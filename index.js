@@ -1,3 +1,5 @@
+'use strict'
+
 const fs = require('fs')
 const path = require('path')
 const getPixels = require('get-pixels')
@@ -10,12 +12,14 @@ const patterns = {
   base64: /;base64,/i,
   image: /\.(gif|jpg|png|svg)$/i,
   raster: /\.(gif|jpg|png)$/i,
-  svg: /svg$/i
+  svgFile: /\.svg$/i,
+  svgSrouce: /<svg[^>]*>[^]*<\/svg>\s*$/i
 }
 
 const paletteFromSVG = (options, callback) => {
-  const palette = getSvgColors(options.fileName, { flat: true })
+  const palette = getSvgColors(options.image, { flat: true })
   const uniqueSvgColors = []
+  let scaleColors
 
   _.each(palette, (color) => {
     if (color.hex) {
@@ -26,17 +30,23 @@ const paletteFromSVG = (options, callback) => {
     }
   })
 
-  const scaleColors = chroma.scale(uniqueSvgColors).colors(options.colorLength)
+  if (options.scaleSvg) {
+    scaleColors = chroma.scale(uniqueSvgColors).colors(options.colors)
+  } else {
+    scaleColors = uniqueSvgColors
+  }
+
   const colors = _.map(scaleColors, (colorString) => {
     return chroma(colorString)
   })
+
   callback(null, colors)
 }
 
 const paletteFromBitmap = (options, callback) => {
-  getPixels(options.fileName, function (err, pixels) {
+  getPixels(options.image, function (err, pixels) {
     if (err) return callback(err)
-    const palette = getRgbaPalette(pixels.data, options.colorLength + 1).map(function (rgba) {
+    const palette = getRgbaPalette(pixels.data, options.colors + 1).map(function (rgba) {
       return chroma(rgba)
     })
     return callback(null, palette)
@@ -44,10 +54,13 @@ const paletteFromBitmap = (options, callback) => {
 }
 
 const colorPalette = (options, callback) => {
-  options.colorLength = options.colorLength || 5
+  options.colors = options.colors || 5
+  if (typeof options.scaleSvg === 'undefined') {
+    options.scaleSvg = false
+  }
 
   // SVG
-  if (options.fileName.match(patterns.svg)) {
+  if (options.image.match(patterns.svgFile) || options.image.match(patterns.svgSrouce)) {
     return paletteFromSVG(options, callback)
   }
 

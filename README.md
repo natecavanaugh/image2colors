@@ -16,8 +16,9 @@ npm install image2colors --save
 const image2colors = require("image2colors")
 
 image2colors({
-  fileName: __dirname + 'double-rainbow.png',
-  colorLength: 5
+  image: __dirname + 'double-rainbow.png',
+  colors: 5,
+  reduceSvg: false
 }, function(err, colors) {
   // colors is an array of colors
 })
@@ -35,8 +36,9 @@ colors[0].alpha(0.5).css();
 
 ## Options
 
-fileName: could be a path (file system path or url) or base64 data:image
-colorLength: restrict the number of result colors
+- image: could be a path (file system path or url), base64 data:image or svg xml string
+- colors: default: 5; restrict the number of result colors
+- scaleSvg: default: false; probably you need all of the svg colors, if this is ´false´, the ´colors´ option will be bypassed
 
 ## How it Works
 
