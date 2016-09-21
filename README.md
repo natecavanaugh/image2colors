@@ -13,9 +13,9 @@ npm install image2colors --save
 ## Usage
 
 ```js
-const getColors = require("image2colors")
+const image2colors = require("image2colors")
 
-getColors({
+image2colors({
     fileName: __dirname + 'double-rainbow.png',
     colorLength: 5
     }, function(err, colors) {
