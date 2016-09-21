@@ -22,7 +22,8 @@ describe('get-image-colors', function () {
   it('works on base64 images', (done) => {
     const base64image = fs.readFileSync(__dirname + '/fixtures/thumb.base64').toString()
     getColors({
-      fileName: base64image, colorLength: 10
+      fileName: base64image,
+      colorLength: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
