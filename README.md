@@ -59,7 +59,6 @@ npm test
 
 - [chroma-js](https://github.com/gka/chroma.js): JavaScript library for color conversions
 - [get-pixels](https://github.com/scijs/get-pixels): Reads the pixels of an image as an ndarray
-- [get-rgba-palette](https://github.com/mattdesl/get-rgba-palette): gets a palette of prominent colors from an array of pixels
 - [svg2png](https://github.com/domenic/svg2png): A SVG to PNG converter, using PhantomJS
 
 ## Dev Dependencies
