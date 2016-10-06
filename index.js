@@ -2,12 +2,9 @@
 
 const fs = require('fs')
 const path = require('path')
-const getPixels = require('get-pixels')
-const getRgbaPalette = require('get-rgba-palette')
-const chroma = require('chroma-js')
-const getSvgColors = require('svg2colors')
+const vector2colors = require('./module/vector2colors.js')
+const raster2colors = require('./module/raster2colors.js')
 const _map = require('lodash/map')
-const _each = require('lodash/each')
 
 const patterns = {
   base64: /;base64,/i,
@@ -17,40 +14,10 @@ const patterns = {
   svgSrouce: /<svg[^>]*>[^]*<\/svg>\s*$/i
 }
 
-const paletteFromSVG = (options, callback) => {
-  const palette = getSvgColors(options.image, { flat: true })
-  const uniqueSvgColors = []
-  let scaleColors
-
-  _each(palette, (color) => {
-    if (color.hex) {
-      const hex = color.hex()
-      if (uniqueSvgColors.indexOf(hex) === -1) {
-        uniqueSvgColors.push(hex)
-      }
-    }
-  })
-
-  if (options.scaleSvg) {
-    scaleColors = chroma.scale(uniqueSvgColors).colors(options.colors)
-  } else {
-    scaleColors = uniqueSvgColors
-  }
-
-  const colors = _map(scaleColors, (colorString) => {
-    return chroma(colorString)
-  })
-
-  callback(null, colors)
-}
-
 const paletteFromBitmap = (options, callback) => {
-  getPixels(options.image, function (err, pixels) {
+  raster2colors(options, function (err, colors) {
     if (err) return callback(err)
-    const palette = _map(getRgbaPalette(pixels.data, options.colors + 1), function (rgba) {
-      return chroma(rgba)
-    })
-    return callback(null, palette)
+    return callback(null, colors)
   })
 }
 
@@ -62,7 +29,7 @@ const colorPalette = (options, callback) => {
 
   // SVG
   if (options.image.match(patterns.svgFile) || options.image.match(patterns.svgSrouce)) {
-    return paletteFromSVG(options, callback)
+    return vector2colors(options, callback)
   }
 
   // PNG, GIF, JPG

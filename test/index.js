@@ -43,7 +43,7 @@ describe('image2colors', function () {
 
   it('works on PNG images', (done) => {
     image2colors({
-      image: __dirname + '/fixtures/thumb.png',
+      image: __dirname + '/fixtures/tux.png',
       colors: 10
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
