@@ -1,6 +1,6 @@
 {
   "name": "image2colors",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Extract colors from images. Supports GIF, JPG, PNG, and even SVG!",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "chroma-js": "^1.2.1",
+    "color2library": "^1.0.8",
     "get-pixels": "^3.3.0",
     "lodash": "^4.15.0",
     "svg2colors": "^1.4.0"
