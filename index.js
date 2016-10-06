@@ -2,8 +2,9 @@
 
 const fs = require('fs')
 const path = require('path')
-const vector2colors = require('./module/vector2colors.js')
-const raster2colors = require('./module/raster2colors.js')
+const vector2colors = require('./module/vector2colors')
+const raster2colors = require('./module/raster2colors')
+const reduceColors = require('./module/reduceColors')
 
 const patterns = {
   base64: /;base64,/i,

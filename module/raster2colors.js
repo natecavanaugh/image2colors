@@ -2,16 +2,18 @@
 
 const chroma = require('chroma-js')
 const getPixels = require('get-pixels')
+const palette32 = require('./palette32')
+const reduceColors = require('./reduceColors')
 const _map = require('lodash/map')
 const _each = require('lodash/each')
 const _values = require('lodash/values')
 
 const samplePalette = function (pixels) {
   const palette = {}
-  _each(pixels, function (color) {
-    const raw = _values(color)
+  _each(pixels, function (axis) {
+    const raw = _values(axis)
     for (var i = 0; i < raw.length; i += 4) {
-      var color = [
+      const color = [
         raw[i], // r
         raw[i + 1], // g
         raw[i + 2] // b
@@ -30,18 +32,34 @@ const samplePalette = function (pixels) {
   return _values(palette)
 }
 
-const getDominantColors = function (pixels, numberOfColors) {
-  numberOfColors = numberOfColors || 20
+
+const getStrongColors = function (pixels, colors) {
+  colors = colors || 255
+  // Search for the strongest 255 colors
   let palette = samplePalette(pixels)
   palette.sort(function (a, b) {return b.weight - a.weight})
-  palette = palette.slice(0, numberOfColors)
-  palette = _map(palette, function (pigment) {
-    return {
-      weight: pigment.weight,
-      color: chroma(pigment.color)
-    }
+  return palette.slice(0, colors)
+}
+
+const getMainColors = function (palette, colors) {
+  colors = colors || 20
+  // Group found colors by 32 base colors and get the strongest
+  let list = reduceColors(palette)
+  return list.slice(0, colors)
+}
+
+const getChromaColors = function (palette) {
+  return _map(palette, function (pigment) {
+    pigment.color = chroma(pigment.color)
+    return pigment
   })
-  return palette
+}
+
+const getDominantColors = function (pixels, colors) {
+  colors = colors || 20
+  const strongs = getStrongColors(pixels)
+  const raw = getMainColors(strongs, colors)
+  return getChromaColors(raw)
 }
 
 const raster2colors = function (options, cb) {
