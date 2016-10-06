@@ -15,6 +15,7 @@ const patterns = {
 }
 
 const colorPalette = (options, callback) => {
+  options.sample = options.sample || 1024
   options.colors = options.colors || 5
   if (typeof options.scaleSvg === 'undefined') {
     options.scaleSvg = false

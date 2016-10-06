@@ -18,6 +18,7 @@ const image2colors = require("image2colors")
 image2colors({
   image: __dirname + 'double-rainbow.png',
   colors: 5,
+  sample: 1024,
   scaleSvg: false
 }, function(err, colors) {
   // colors is an array of colors
@@ -40,6 +41,7 @@ colors[0].color.alpha(0.5).css();
 
 - image: could be a path (file system path or url), base64 data:image or svg xml string
 - colors: default: 5; restrict the number of result colors
+- sample: default: 1024: used for pre-filter raster image colors
 - scaleSvg: default: false; probably you need all of the svg colors, if this is ´false´, the ´colors´ option will be bypassed
 
 ## How it Works

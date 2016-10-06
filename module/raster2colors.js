@@ -34,8 +34,8 @@ const samplePalette = function (pixels) {
 
 
 const getStrongColors = function (pixels, colors) {
-  colors = colors || 255
-  // Search for the strongest 255 colors
+  colors = colors || 1024
+  // Search for the strongest 1024 colors
   let palette = samplePalette(pixels)
   palette.sort(function (a, b) {return b.weight - a.weight})
   return palette.slice(0, colors)
@@ -55,10 +55,9 @@ const getChromaColors = function (palette) {
   })
 }
 
-const getDominantColors = function (pixels, colors) {
-  colors = colors || 20
-  const strongs = getStrongColors(pixels)
-  const raw = getMainColors(strongs, colors)
+const getDominantColors = function (pixels, options) {
+  const strongs = getStrongColors(pixels, options.sample)
+  const raw = getMainColors(strongs, options.colors)
   return getChromaColors(raw)
 }
 
@@ -67,7 +66,7 @@ const raster2colors = function (options, cb) {
     if (err) {
       return cb(err)
     }
-    return cb(null, getDominantColors(pixels, options.colors))
+    return cb(null, getDominantColors(pixels, options))
   })
 }
 
