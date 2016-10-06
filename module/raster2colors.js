@@ -18,11 +18,11 @@ const samplePalette = function (pixels) {
       ]
       var colorKey = color.join(',')
       if (palette[colorKey]) {
-        palette[colorKey]._n++
+        palette[colorKey].weight++
       } else {
         palette[colorKey] = {
-          rgba: 'rgb(' + colorKey + ')',
-          _n: 1
+          color: 'rgb(' + colorKey + ')',
+          weight: 1
         }
       }
     }
@@ -33,10 +33,13 @@ const samplePalette = function (pixels) {
 const getDominantColors = function (pixels, numberOfColors) {
   numberOfColors = numberOfColors || 20
   let palette = samplePalette(pixels)
-  palette.sort(function (a, b) {return b._n - a._n})
+  palette.sort(function (a, b) {return b.weight - a.weight})
   palette = palette.slice(0, numberOfColors)
-  palette = _map(palette, function (color) {
-    return chroma(color.rgba)
+  palette = _map(palette, function (pigment) {
+    return {
+      weight: pigment.weight,
+      color: chroma(pigment.color)
+    }
   })
   return palette
 }

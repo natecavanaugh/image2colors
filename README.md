@@ -24,13 +24,15 @@ image2colors({
 })
 ```
 
-`colors` is an array of [chroma.js](http://gka.github.io/chroma.js) color objects. chroma.js objects have methods that lets you pick the color format you want (RGB hex, HSL, etc), and give you access to powerful color manipulation features:
+`colors` is an array of custom objects, with occurrence (wegiht) and [chroma.js](http://gka.github.io/chroma.js) color objects. chroma.js objects have methods that lets you pick the color format you want (RGB hex, HSL, etc), and give you access to powerful color manipulation features:
 
 ```js
-colors.map(color => color.hex())
+colors.map(pigment => pigment.color.hex())
 // => ['#FFFFFF', '#123123', '#F0F0F0']
+colors.map(pigment => pigment.weight)
+// => [1700, 64, 23]
 
-colors[0].alpha(0.5).css();
+colors[0].color.alpha(0.5).css();
 // => 'rgb(0,128,128)''
 ```
 

@@ -10,11 +10,18 @@ describe('image2colors', function () {
     if (err) throw err
     assert(Array.isArray(palette))
     assert(palette.length)
-    palette = palette.map(color => color.hex())
+    const weights = palette.map(function (pigment) {
+      return pigment.weight
+    })
+    const colors = palette.map(function (pigment) {
+      return pigment.color.hex()
+    })
     console.log()
-    console.info('Palette length: ', palette.length)
-    console.info('Palette: ', JSON.stringify(palette))
-    assert(palette[0].match(/^#[0-9a-f]{3,6}$/i))
+    console.info('Palette length: ', colors.length)
+    console.info('Palette colors: ', JSON.stringify(colors))
+    console.info('Palette weights: ', JSON.stringify(weights))
+    console.log()
+    assert(colors[0].match(/^#[0-9a-f]{3,6}$/i))
     done()
   }
 

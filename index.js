@@ -4,7 +4,6 @@ const fs = require('fs')
 const path = require('path')
 const vector2colors = require('./module/vector2colors.js')
 const raster2colors = require('./module/raster2colors.js')
-const _map = require('lodash/map')
 
 const patterns = {
   base64: /;base64,/i,
@@ -12,13 +11,6 @@ const patterns = {
   raster: /\.(gif|jpg|png)$/i,
   svgFile: /\.svg$/i,
   svgSrouce: /<svg[^>]*>[^]*<\/svg>\s*$/i
-}
-
-const paletteFromBitmap = (options, callback) => {
-  raster2colors(options, function (err, colors) {
-    if (err) return callback(err)
-    return callback(null, colors)
-  })
 }
 
 const colorPalette = (options, callback) => {
@@ -33,7 +25,7 @@ const colorPalette = (options, callback) => {
   }
 
   // PNG, GIF, JPG
-  return paletteFromBitmap(options, callback)
+  return raster2colors(options, callback)
 }
 
 module.exports = colorPalette
