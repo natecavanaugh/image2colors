@@ -1,7 +1,5 @@
 'use strict'
 
-const fs = require('fs')
-const path = require('path')
 const vector2colors = require('./module/vector2colors')
 const raster2colors = require('./module/raster2colors')
 const reduceColors = require('./module/reduceColors')
