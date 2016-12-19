@@ -2,6 +2,7 @@
 
 const chroma = require('chroma-js')
 const getPixels = require('get-pixels')
+var imageType = require('image-type')
 const palette32 = require('./palette32')
 const reduceColors = require('./reduceColors')
 const _map = require('lodash/map')
@@ -62,12 +63,19 @@ const getDominantColors = function (pixels, options) {
 }
 
 const raster2colors = function (options, cb) {
-  getPixels(options.image, function (err, pixels) {
+  const callback = function (err, pixels) {
     if (err) {
       return cb(err)
     }
     return cb(null, getDominantColors(pixels, options))
-  })
+  };
+
+  if (Buffer.isBuffer(options.image)) {
+    getPixels(options.image, imageType(options.image).mime, callback)
+  }
+  else {
+    getPixels(options.image, callback)
+  }
 }
 
 module.exports = raster2colors

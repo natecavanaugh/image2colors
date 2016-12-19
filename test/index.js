@@ -71,4 +71,11 @@ describe('image2colors', function () {
     }, (err, palette) => ( testPalette(err, palette, done) ))
   })
 
+  it('works on Image buffers', (done) => {
+    image2colors({
+      image: fs.readFileSync(__dirname + '/fixtures/thumb.jpg'),
+      colors: 10
+    }, (err, palette) => ( testPalette(err, palette, done) ))
+  })
+
 })

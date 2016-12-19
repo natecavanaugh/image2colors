@@ -20,7 +20,7 @@ const colorPalette = (options, callback) => {
   }
 
   // SVG
-  if (options.image.match(patterns.svgFile) || options.image.match(patterns.svgSrouce)) {
+  if (options.image.match && (options.image.match(patterns.svgFile) || options.image.match(patterns.svgSrouce))) {
     return vector2colors(options, callback)
   }
 
